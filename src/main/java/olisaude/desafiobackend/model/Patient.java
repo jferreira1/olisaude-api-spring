@@ -53,6 +53,10 @@ public class Patient {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -67,6 +71,15 @@ public class Patient {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Nullable
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(@Nullable Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public List<HealthIssue> getHealthIssues() {

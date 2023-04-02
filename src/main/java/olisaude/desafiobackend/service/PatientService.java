@@ -15,16 +15,6 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-    public Patient createPatient(Patient patient) {
-        System.out.println(patient.toString());
-
-        return patientRepository.save(patient);
-    }
-
-//    public Patient editPatient(UUID id, Patient oldPatient) {
-//        return Patient;
-//    }
-
     public Patient getPatientById(UUID id) {
         return patientRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
     }
@@ -33,9 +23,24 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
+    public Patient createPatient(Patient patient) {
+        return patientRepository.save(patient);
+    }
+
+    public Patient editPatient(UUID id, Patient patient) {
+            return patientRepository.findById(id)
+                    .map(patientFound -> {
+                        patientFound.setName(patient.getName());
+                        patientFound.setGender(patient.getGender());
+                        if (patient.getBirthdate() != null) patientFound.setBirthdate(patient.getBirthdate());
+                        return patientRepository.save(patientFound);
+                    }).orElseGet(() -> {
+                        patient.setId(id);
+                        return patientRepository.save(patient);
+                    });
+    }
+
 //    public List<Patient> listHigherPriorityPatients() {
 //        return null;
 //    }
-
-
 }

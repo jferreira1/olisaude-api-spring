@@ -15,11 +15,6 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @PutMapping("/patients")
-    public Patient createPatient(@RequestBody Patient patient) {
-        System.out.println(patient);
-        return patientService.createPatient(patient);
-    };
 
     @GetMapping("/patients")
     public List<Patient> listAllPatients() {
@@ -30,5 +25,15 @@ public class PatientController {
     public Patient getPatientById(@PathVariable UUID id) {
         return patientService.getPatientById(id);
     };
+
+    @PutMapping("/patients")
+    public Patient createPatient(@RequestBody Patient patient) {
+        return patientService.createPatient(patient);
+    };
+
+    @PutMapping("/patients/{id}")
+    public Patient editPatient(@PathVariable UUID id, @RequestBody Patient patient) {
+        return patientService.editPatient(id, patient);
+    }
 
 }
