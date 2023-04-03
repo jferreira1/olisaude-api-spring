@@ -37,7 +37,7 @@ public class Patient {
     @UpdateTimestamp
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<HealthIssue> healthIssues;
 
     public Patient() {
