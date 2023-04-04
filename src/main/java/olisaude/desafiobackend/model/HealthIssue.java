@@ -2,7 +2,7 @@ package olisaude.desafiobackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import olisaude.desafiobackend.Grade;
+import olisaude.desafiobackend.enums.Grade;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -25,6 +25,14 @@ public class HealthIssue {
         this.name = name;
         this.grade = grade;
         this.patient = patient;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -73,4 +81,6 @@ public class HealthIssue {
                 ", patient=" + patient +
                 '}';
     }
+
+
 }

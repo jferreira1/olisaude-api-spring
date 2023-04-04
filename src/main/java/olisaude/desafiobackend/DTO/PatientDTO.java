@@ -1,21 +1,46 @@
 package olisaude.desafiobackend.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import olisaude.desafiobackend.enums.Gender;
+import olisaude.desafiobackend.model.HealthIssue;
 
-import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class PatientDTO {
     private UUID id;
     private String name;
     private Gender gender;
-    private Date birthDate;
-    //private List<HealthIssue> healthIssues;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date birthdate;
+
+    private ArrayList<HealthIssue> healthIssues;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
     public PatientDTO() {
+    }
+
+    public PatientDTO(UUID id, String name, Gender gender, Date birthdate, ArrayList<HealthIssue> healthIssues) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.healthIssues = healthIssues;
+    }
+
+    public ArrayList<HealthIssue> getHealthIssues() {
+        return healthIssues;
+    }
+
+    public void setHealthIssues(ArrayList<HealthIssue> healthIssues) {
+        this.healthIssues = healthIssues;
     }
 
     public UUID getId() {
@@ -42,12 +67,12 @@ public class PatientDTO {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public Date getCreatedAt() {
@@ -72,12 +97,12 @@ public class PatientDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PatientDTO that = (PatientDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && gender == that.gender && Objects.equals(birthDate, that.birthDate) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && gender == that.gender && Objects.equals(birthdate, that.birthdate) && Objects.equals(healthIssues, that.healthIssues) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, gender, birthDate, createdAt, updatedAt);
+        return Objects.hash(id, name, gender, birthdate, healthIssues, createdAt, updatedAt);
     }
 
     @Override
@@ -86,7 +111,8 @@ public class PatientDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gender=" + gender +
-                ", birthDate=" + birthDate +
+                ", birthdate=" + birthdate +
+                ", healthIssues=" + healthIssues +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

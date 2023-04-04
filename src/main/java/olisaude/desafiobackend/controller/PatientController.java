@@ -1,5 +1,6 @@
 package olisaude.desafiobackend.controller;
 
+import olisaude.desafiobackend.DTO.PatientDTO;
 import olisaude.desafiobackend.model.Patient;
 import olisaude.desafiobackend.service.PatientService;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,12 @@ public class PatientController {
     };
 
     @PutMapping("/patients")
-    public Patient createPatient(@RequestBody Patient patient) {
-        return patientService.createPatient(patient);
+    public Patient createPatient(@RequestBody PatientDTO patientDTO) {
+        return patientService.createPatient(patientDTO);
     };
 
     @PutMapping("/patients/{id}")
-    public Patient editPatient(@PathVariable UUID id, @RequestBody Patient patient) {
-        return patientService.editPatient(id, patient);
+    public Patient editPatient(@PathVariable UUID id, @RequestBody PatientDTO patientDTO) {
+        return patientService.editPatient(id, patientDTO);
     }
-
 }
